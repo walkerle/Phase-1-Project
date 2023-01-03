@@ -36,4 +36,6 @@ function cycleCatPics() {}
 
 // Initializers
 // getApiData(baseUrl).then(data => console.log(data)); // renderForecast?
-getOneCityData(baseUrl, 'New York').then(data => console.log(data)); // renderCityData?
+getOneCityData(baseUrl, 'New York').then(data => {
+    console.log(data)
+}); // renderCityData?
