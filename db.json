@@ -1,11 +1,11 @@
 {
-    "temperature": "9 °C",
+    "temperature": "+9 °C",
     "wind": "7 km/h",
     "description": "Rain, mist",
     "forecast": [
         {
             "day": "1",
-            "temperature": "9 °C",
+            "temperature": "+9 °C",
             "wind": "17 km/h"
         },
         {
