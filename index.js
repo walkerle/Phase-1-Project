@@ -1,20 +1,33 @@
 // Globals
 const baseUrl = "https://goweather.herokuapp.com/weather/"
+const dbjson = 'db.json'
+const coldCats = [
+    'images/cold1.jpeg',
+    'images/cold2.jpg',
+    'images/cold3.jpg'
+];
+const sunnyCats = [
+    'images/hot1.jpg',
+    'images/hot2.jpg',
+    'images/hot3.jpg'
+];
+const hotCats = [
+    'images/sunny1.jpg',
+    'images/sunny2.jpg',
+    'images/sunny3.jpg'
+];
+let catArray = [];
 
 // DOM Selectors
 const currentCity = document.querySelector('#forecast');
 const threeDayForecast = document.querySelector('#threedayforecast');
+const catMood = document.querySelector('#cat-pictures');
 // const openCityForm = document.querySelector('');
 // const cityForm = document.querySelector('');
 // const commentsForm = document.querySelector('');
 // const catHTML = document.querySelector('');
 
 // Fetch Functions
-// function getApiData(url) {
-//     return fetch(url)
-//     .then(res => res.json())
-// }
-
 function getOneCityData(url, city) {
     return fetch(`${url}/${city}`)
     .then(res => res.json())
@@ -34,6 +47,8 @@ function renderCityData(data) {
     cityTemp.textContent = `Temperature: ${tempInF} F`;
     cityWind.textContent = `Wind: ${windInMih} mph`;
     currentCity.append(cityDesc, cityTemp, cityWind);
+
+    renderCatPic(tempInF);
 }
 
 function renderForecast(data) {
@@ -50,6 +65,25 @@ function renderForecast(data) {
         threeDayForecast.append(temp, wind);
     })
 }
+
+function renderCatPic(temp) {
+    const catImg = document.createElement('img');
+    catImg.id = 'cat-image';
+    if(temp < 45) {
+        catArray = coldCats;
+    } else if (temp >= 45 && temp <= 90) {
+        catArray = sunnyCats;
+    } else if (temp > 90) {
+        catArray = hotCats;
+    }
+    catImg.src = catArray[0];
+    catMood.append(catImg);
+    cycleCatPics(catArray);
+}
+
+// function to fetch description, data.description in renderCityData
+// String.split(' ');
+// Array.find();
 
 function convCtoF(celsius) {
     const fahrenheit = celsius * (9 / 5) + 32;
@@ -68,15 +102,23 @@ function convKmhtoMph(kmh) {
 // catHTML.addEventListener('dblclick', cycleCatPics);
 
 // Event Handlers
-function cycleCatPics() {}
+function cycleCatPics(catArray) {
+    const catImg = document.querySelector('#cat-image');
+    catImg.addEventListener('dblclick', e => {
+        // debugger
+        console.log(catImg);
+        console.log(catArray);
+        console.log(e.target);
+        console.log(e.target.src);
+        console.log(catArray[0]);
+        console.log(e.target.src == catArray[0]);
+        // catImage.src = e.target.src;
+    })
+}
 
 // Initializers
-// getApiData(baseUrl).then(data => console.log(data)); // renderForecast?
-getOneCityData(baseUrl, 'New York').then(data => {
-    // console.log(data);
-    renderCityData(data);
-    // console.log(data.forecast);
-    renderForecast(data.forecast);
-});
-// console.log(convCtoF(20));
-// console.log(convKmhtoMih(100));
+// getOneCityData(baseUrl, 'New York').then(data => {
+//     renderCityData(data);
+//     renderForecast(data.forecast);
+// });
+renderCatPic(40);
