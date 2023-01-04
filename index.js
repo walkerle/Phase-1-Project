@@ -48,6 +48,7 @@ function renderForecast(data) {
         temp.textContent = `${tempInF}°F`;
         wind.textContent = `${windInMih} mph`;
         threeDayForecast.append(temp, wind);
+        threeDayForecast.setAttribute('style', 'border: 1px solid')
     })
 }
 
