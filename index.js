@@ -2,7 +2,7 @@
 const baseUrl = "https://goweather.herokuapp.com/weather/"
 
 // DOM Selectors
-const currentCity = document.querySelector('#current-city');
+const currentCity = document.querySelector('#forecast');
 const threeDayForecast = document.querySelector('#threedayforecast');
 // const openCityForm = document.querySelector('');
 // const cityForm = document.querySelector('');
