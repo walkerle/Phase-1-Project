@@ -1,5 +1,6 @@
 // Globals
 const baseUrl = "https://goweather.herokuapp.com/weather/"
+const testUrl = "http://localhost:3000/newyork"
 const dbjson = 'db.json'
 const coldCats = [
     'images/cold1.jpeg',
@@ -107,19 +108,21 @@ function cycleCatPics(catArray) {
     const catImg = document.querySelector('#cat-image');
     catImg.addEventListener('dblclick', e => {
         // debugger
-        console.log(catImg);
-        console.log(catArray);
-        console.log(e.target);
-        console.log(e.target.src);
-        console.log(catArray[0]);
-        console.log(e.target.src == catArray[0]);
+        console.log('catImg:', catImg);
+        console.log('catArray:', catArray);
+        console.log('catArray[0]:', catArray[0]);
+        console.log('e.target', e.target);
+        console.log('e.target.src', e.target.src);
+        console.log('compare', e.target.src == catArray[0]);
         // catImage.src = e.target.src;
     })
 }
 
 // Initializers
+getOneCityData(testUrl, '').then(data => {
 // getOneCityData(baseUrl, 'New York').then(data => {
-//     renderCityData(data);
-//     renderForecast(data.forecast);
-// });
-renderCatPic(40);
+    // console.log(data);
+    renderCityData(data);
+    renderForecast(data.forecast);
+});
+// renderCatPic(40);
