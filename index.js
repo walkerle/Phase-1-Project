@@ -23,6 +23,7 @@ let catArray = [];
 const currentCity = document.querySelector('#forecast');
 const threeDayForecast = document.querySelector('#threedayforecast');
 const catMood = document.querySelector('#cat-pictures');
+const catImg = document.querySelector('#cat-image');
 // const openCityForm = document.querySelector('');
 // const cityForm = document.querySelector('');
 // const commentsForm = document.querySelector('');
@@ -69,8 +70,6 @@ function renderForecast(data) {
 }
 
 function renderCatPic(temp) {
-    const catImg = document.createElement('img');
-    catImg.id = 'cat-image';
     if(temp < 45) {
         catArray = coldCats;
     } else if (temp >= 45 && temp <= 90) {
@@ -79,7 +78,7 @@ function renderCatPic(temp) {
         catArray = hotCats;
     }
     catImg.src = catArray[0];
-    catMood.append(catImg);
+    // catMood.append(catImg);
     cycleCatPics(catArray);
 }
 
@@ -106,14 +105,25 @@ function convKmhtoMph(kmh) {
 // Event Handlers
 function cycleCatPics(catArray) {
     const catImg = document.querySelector('#cat-image');
+    let i = 0
     catImg.addEventListener('dblclick', e => {
+        if(i < 2) {
+            i += 1;
+        } else {
+            i = 0;
+        }
+        catImg.src = catArray[i];
         // debugger
-        console.log('catImg:', catImg);
-        console.log('catArray:', catArray);
-        console.log('catArray[0]:', catArray[0]);
-        console.log('e.target', e.target);
-        console.log('e.target.src', e.target.src);
-        console.log('compare', e.target.src == catArray[0]);
+        
+
+
+        // debugger
+        // console.log('catImg:', catImg);
+        // console.log('catArray:', catArray);
+        // console.log('catArray[0]:', catArray[0]);
+        // console.log('e.target', e.target);
+        // console.log('e.target.src', e.target.src);
+        // console.log('compare', e.target.src == catArray[0]);
         // catImage.src = e.target.src;
     })
 }
@@ -125,4 +135,8 @@ getOneCityData(testUrl, '').then(data => {
     renderCityData(data);
     renderForecast(data.forecast);
 });
+
+// add if statement for heroku response
+// response.ok true or false
+
 // renderCatPic(40);
