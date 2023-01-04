@@ -7,54 +7,64 @@
     <body>
         <script defer src="index.js"></script>
         <header>
-          <h1>Weather Is Coming!</h1>
+          <h1 id="header" >Weather Is Coming!</h1>
+          <div id="current-city">
+            <h1>New York, New York</h1>
+          </div>
         </header>
-
+<div id="grid-container" >
         <!-- 3-day Forecast Section - left of page -->
-        <div>
-          <h3>3-day Forecast Section:</h3>
-          <div id="threedayforecast"></div>
-        </div>
 
-        <!-- Today's Forecast Section - center of page -->
-        <div id="current-city">
-          <h2>New York, New York</h2>
-          <div id="forecast">Forecast Section:</div>
-        </div>
+  <section id="left" >
+          <div>
+            <h3>3-day Forecast</h3>
+            <div id="threedayforecast"></div>
+          </div>
+  </section>
+  <section id="center" >
+          <!-- Today's Forecast Section - center of page -->
 
-        <!-- Cycle cat pictures - below Today's Forecast Section -->
-        <div id="cat-pictures">
-          <h3>Today's Cat Mood:</h3>
-        </div>
+            <div id="forecast"></div>
+          
 
-        <!-- New City Form Input - top right of page -->
-        <form id="new-city">
-          <h4>Search New City:</h4>
-          <label>City: </label>
-          <input type="text" id="search-city"/>
-          <input type="submit" value="Search"/>
-          <!-- Add submit button -->
-        </form>
+          <!-- Cycle cat pictures - below Today's Forecast Section -->
+          <div id="cat-pictures">
+            <h3>Today's Cat Mood:</h3>
+            <h4>Double Click To See More Cats!</h4>
+          </div>
+  </section>
+  <section id="right">
+          <!-- New City Form Input - top right of page -->
+          <form id="new-city">
+            <h4>Search New City:</h4>
+            <label>City: </label>
+            <input type="text" id="search-city"/>
+            <input type="submit" value="Search"/>
+            <!-- Add submit button -->
+          </form>
 
-        <!-- List of searched cities - mid-right of page -->
-        <div id="city-search">
-          Past Searched Cities:
-        </div>
+          <!-- List of searched cities - mid-right of page -->
+          <p>Past Searched Cities:</p>
+          <div id="city-search">
+            <ul>Example City</ul>
+          </div>
 
-        <!-- Comments Section - bottom right of page -->
-        <h3>COMMENTS:</h3>
-        <ul>Unordered List - Comments
-          <li>Comment 1</li>
-          <li>Comment 2</li>
-          <li>Comment 3</li>
-        </ul>
-        <form id="city-comment">
-          <h3>Add Comment:</h3>
-          <h4>Name:</h4>
-          <input type="text" id="new-name"/>
-          <h4>New Comment:</h4>
-          <textarea name="new-comment" id="new-comment"></textarea>
-          <input type="submit" value="Add Comment"/>
-        </form>
-    </body>
+          <!-- Comments Section - bottom right of page -->
+          <h3>COMMENTS:</h3>
+          <ul>Unordered List - Comments
+            <li>Comment 1</li>
+            <li>Comment 2</li>
+            <li>Comment 3</li>
+          </ul>
+          <form id="city-comment">
+            <h3>Add Comment:</h3>
+            <h4>Name:</h4>
+            <input type="text" id="new-name"/>
+            <h4>New Comment</h4>
+            <textarea name="new-comment" id="new-comment"></textarea>
+            <input type="submit" value="Add Comment"/>
+          </form>
+  </section>
+</div>
+      </body>
 </html>
