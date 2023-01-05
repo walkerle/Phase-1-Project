@@ -8,24 +8,25 @@ const coldCats = [
     'images/cold3.jpg'
 ];
 const sunnyCats = [
-    'images/hot1.jpg',
-    'images/hot2.jpg',
-    'images/hot3.jpg'
-];
-const hotCats = [
     'images/sunny1.jpg',
     'images/sunny2.jpg',
     'images/sunny3.jpg'
 ];
+const hotCats = [
+    'images/hot1.jpg',
+    'images/hot2.jpg',
+    'images/hot3.jpg'
+];
 let catArray = [];
+let searchedCitiesArray = [];
 
 // DOM Selectors
 const currentCity = document.querySelector('#forecast');
 const threeDayForecast = document.querySelector('#threedayforecast');
 const catMood = document.querySelector('#cat-pictures');
 const catImg = document.querySelector('#cat-image');
-// const openCityForm = document.querySelector('');
-// const cityForm = document.querySelector('');
+const cityForm = document.querySelector('#new-city');
+const citySearch = document.querySelector('#city-search');
 // const commentsForm = document.querySelector('');
 // const catHTML = document.querySelector('');
 
@@ -46,7 +47,7 @@ function renderCityData(data) {
     const windInMih = convKmhtoMph(parseInt(data.wind.substring(0, data.wind.length-4)));
 
     cityDesc.textContent = `Today's Forecast: ${data.description}`;
-    cityTemp.textContent = `Temperature: ${tempInF} F`;
+    cityTemp.textContent = `Temperature: ${tempInF}°F`;
     cityWind.textContent = `Wind: ${windInMih} mph`;
     currentCity.append(cityDesc, cityTemp, cityWind);
 
@@ -79,7 +80,7 @@ function renderCatPic(temp) {
     }
     catImg.src = catArray[0];
     // catMood.append(catImg);
-    cycleCatPics(catArray);
+    cycleCatPics();
 }
 
 // function to fetch description, data.description in renderCityData
@@ -97,14 +98,11 @@ function convKmhtoMph(kmh) {
 }
 
 // Event Listeners
-// openCityForm.addEventListener('click', cycleCatPics);
-// cityForm.addEventListener('submit', cycleCatPics);
-// commentsForm.addEventListener('submit', cycleCatPics);
-// catHTML.addEventListener('dblclick', cycleCatPics);
+cityForm.addEventListener('submit', addCity);
+// commentsForm.addEventListener('submit', newFunction);
 
 // Event Handlers
-function cycleCatPics(catArray) {
-    const catImg = document.querySelector('#cat-image');
+function cycleCatPics() {
     let i = 0
     catImg.addEventListener('dblclick', e => {
         if(i < 2) {
@@ -113,18 +111,23 @@ function cycleCatPics(catArray) {
             i = 0;
         }
         catImg.src = catArray[i];
-        // debugger
-        
+    })
+}
 
+function addCity(e) {
+    e.preventDefault();
+    const newCity = document.createElement('li');
+    newCity.textContent = e.target['search-city'].value;
+    let changeCity = e.target['search-city'].value;
+    // searchedCitiesArray.push(e.target)
+    citySearch.append(newCity);
+    cityForm.reset();
 
-        // debugger
-        // console.log('catImg:', catImg);
-        // console.log('catArray:', catArray);
-        // console.log('catArray[0]:', catArray[0]);
-        // console.log('e.target', e.target);
-        // console.log('e.target.src', e.target.src);
-        // console.log('compare', e.target.src == catArray[0]);
-        // catImage.src = e.target.src;
+    currentCity.innerHTML = "";
+    threeDayForecast.innerHTML = "";
+    getOneCityData(baseUrl, changeCity).then(data => {
+        renderCityData(data);
+        renderForecast(data.forecast);
     })
 }
 
@@ -138,5 +141,3 @@ getOneCityData(testUrl, '').then(data => {
 
 // add if statement for heroku response
 // response.ok true or false
-
-// renderCatPic(40);
