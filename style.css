@@ -53,6 +53,10 @@ h4 {
     font-size: small;
 }
 
+h5 {
+    font-weight: 1000;
+}
+
 #right {
     background-color: rgb(176, 201, 228);
     padding: 10px;
@@ -67,7 +71,7 @@ h4 {
 }
 
 /* box */
-#city-search  {
+.container  {
     text-align: left;
     background-color: white;
     color: black;
@@ -76,6 +80,11 @@ h4 {
     padding: 5px;
     overflow-x: scroll;
     overflow-y: auto;
+    line-height: 20px;
+}
+
+#city-comment {
+    line-height: 20px;
 }
 
 ul {
@@ -89,10 +98,6 @@ ul {
     overflow-y: auto;
 }
 
-#city-comment {
-    line-height: 20px;
-    text-align: left;
-}
 
 #left {
     font-size: 20px;

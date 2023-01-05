@@ -18,7 +18,6 @@ const hotCats = [
     'images/hot3.jpg'
 ];
 let catArray = [];
-let searchedCitiesArray = [];
 
 // DOM Selectors
 const currentCityTitle = document.querySelector('#current-city')
@@ -48,7 +47,7 @@ function renderCityData(data) {
     const windInMih = convKmhtoMph(parseInt(data.wind.substring(0, data.wind.length-4)));
 
     cityDesc.textContent = `Today's Forecast: ${data.description}`;
-    cityTemp.textContent = `Temperature: ${tempInF}°F`;
+    cityTemp.textContent = `Temperature: ${tempInF} degrees F`;
     cityWind.textContent = `Wind: ${windInMih} mph`;
     currentCity.append(cityDesc, cityTemp, cityWind);
 
@@ -57,16 +56,16 @@ function renderCityData(data) {
 
 function renderForecast(data) {
     data.forEach(element => {
+        const day = document.createElement('h5');
         const temp = document.createElement('h4');
         const wind = document.createElement('h4');
         const tempInF = convCtoF(parseInt(element.temperature.substring(0, element.temperature.length-2)));
-        // console.log(tempInF);
         const windInMih = convKmhtoMph(parseInt(element.wind.substring(0, element.wind.length-4)));
-        // console.log(windInMih)
 
-        temp.textContent = `${tempInF}°F`;
+        day.textContent = `In ${element.day} day(s):`;
+        temp.textContent = `${tempInF} degrees F`;
         wind.textContent = `${windInMih} mph`;
-        threeDayForecast.append(temp, wind);
+        threeDayForecast.append(day, temp, wind);
         threeDayForecast.setAttribute('style', 'border: 1px solid');
     })
 }
@@ -80,22 +79,17 @@ function renderCatPic(temp) {
         catArray = hotCats;
     }
     catImg.src = catArray[0];
-    // catMood.append(catImg);
     cycleCatPics();
 }
 
-// function to fetch description, data.description in renderCityData
-// String.split(' ');
-// Array.find();
-
 function convCtoF(celsius) {
     const fahrenheit = celsius * (9 / 5) + 32;
-    return fahrenheit;
+    return fahrenheit.toFixed(1);
 }
 
 function convKmhtoMph(kmh) {
     const mph = kmh * 0.6213712;
-    return mph;
+    return mph.toFixed(2);
 }
 
 // Event Listeners
@@ -131,12 +125,10 @@ function addCity(e) {
         renderForecast(data.forecast);
     })
 
-    newCity.addEventListener('click', newFunction)
+    newCity.addEventListener('click', updateCity)
 }
 
-function newFunction(e) {
-    // console.log('newFunction invoked');
-    // debugger
+function updateCity(e) {
     changeCity = e.target.textContent;
     currentCityTitle.textContent = e.target.textContent;
     currentCity.innerHTML = "";
@@ -154,7 +146,7 @@ function renderComments (e) {
     let name = e.target['new-name'].value 
     li.textContent = `${name} said \"${comment}\"`
     commentContainer.appendChild(li)
-    commentForm.reset()
+    commentsForm.reset()
 }
 
 // Initializers
