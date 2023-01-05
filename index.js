@@ -21,14 +21,15 @@ let catArray = [];
 let searchedCitiesArray = [];
 
 // DOM Selectors
+const currentCityTitle = document.querySelector('#current-city')
 const currentCity = document.querySelector('#forecast');
 const threeDayForecast = document.querySelector('#threedayforecast');
 const catMood = document.querySelector('#cat-pictures');
 const catImg = document.querySelector('#cat-image');
 const cityForm = document.querySelector('#new-city');
 const citySearch = document.querySelector('#city-search');
-// const commentsForm = document.querySelector('');
-// const catHTML = document.querySelector('');
+const commentsForm = document.querySelector('#city-comment');
+const commentContainer = document.querySelector('#new-comment-container');
 
 // Fetch Functions
 function getOneCityData(url, city) {
@@ -99,7 +100,7 @@ function convKmhtoMph(kmh) {
 
 // Event Listeners
 cityForm.addEventListener('submit', addCity);
-// commentsForm.addEventListener('submit', newFunction);
+commentsForm.addEventListener('submit', renderComments);
 
 // Event Handlers
 function cycleCatPics() {
@@ -118,8 +119,8 @@ function addCity(e) {
     e.preventDefault();
     const newCity = document.createElement('li');
     newCity.textContent = e.target['search-city'].value;
+    currentCityTitle.textContent = e.target['search-city'].value;
     let changeCity = e.target['search-city'].value;
-    // searchedCitiesArray.push(e.target)
     citySearch.append(newCity);
     cityForm.reset();
 
@@ -129,15 +130,49 @@ function addCity(e) {
         renderCityData(data);
         renderForecast(data.forecast);
     })
+
+    newCity.addEventListener('click', newFunction)
+}
+
+function newFunction(e) {
+    // console.log('newFunction invoked');
+    // debugger
+    changeCity = e.target.textContent;
+    currentCityTitle.textContent = e.target.textContent;
+    currentCity.innerHTML = "";
+    threeDayForecast.innerHTML = "";
+    getOneCityData(baseUrl, changeCity).then(data => {
+        renderCityData(data);
+        renderForecast(data.forecast);
+    })
+}
+
+function renderComments (e) {
+    e.preventDefault();
+    const li = document.createElement('li');
+    let comment = e.target['new-comment'].value
+    let name = e.target['new-name'].value 
+    li.textContent = `${name} said \"${comment}\"`
+    commentContainer.appendChild(li)
+    commentForm.reset()
 }
 
 // Initializers
-getOneCityData(testUrl, '').then(data => {
-// getOneCityData(baseUrl, 'New York').then(data => {
-    // console.log(data);
-    renderCityData(data);
-    renderForecast(data.forecast);
-});
-
-// add if statement for heroku response
-// response.ok true or false
+function gettingWeather () {
+    fetch(baseUrl).then((response) => {
+            getWeather(response)
+        }
+    )}
+function getWeather (response) {
+        if (response.ok === true) {
+            getOneCityData(baseUrl, 'New York').then(data => {
+            renderCityData(data);
+            renderForecast(data.forecast)});
+        } else if (response.ok === false) {
+            getOneCityData(testUrl, '').then(data => {
+                renderCityData(data);
+                renderForecast(data.forecast);
+            });
+        }
+    }
+gettingWeather()
