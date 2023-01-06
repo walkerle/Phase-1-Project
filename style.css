@@ -21,7 +21,8 @@ body {
 
 #grid-container {
     display: grid;
-    
+    justify-content: space-between;
+    align-content: space-between;
 }
 
 #left {

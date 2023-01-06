@@ -47,7 +47,7 @@ function renderCityData(data) {
     const windInMih = convKmhtoMph(parseInt(data.wind.substring(0, data.wind.length-4)));
 
     cityDesc.textContent = `Today's Forecast: ${data.description}`;
-    cityTemp.textContent = `Temperature: ${tempInF} degrees F`;
+    cityTemp.textContent = `Temperature: ${tempInF}\xB0F`;
     cityWind.textContent = `Wind: ${windInMih} mph`;
     currentCity.append(cityDesc, cityTemp, cityWind);
 
@@ -63,7 +63,7 @@ function renderForecast(data) {
         const windInMih = convKmhtoMph(parseInt(element.wind.substring(0, element.wind.length-4)));
 
         day.textContent = `In ${element.day} day(s):`;
-        temp.textContent = `${tempInF} degrees F`;
+        temp.textContent = `${tempInF}\xB0F`;
         wind.textContent = `${windInMih} mph`;
         threeDayForecast.append(day, temp, wind);
         threeDayForecast.setAttribute('style', 'border: 1px solid');
